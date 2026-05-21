@@ -1,6 +1,7 @@
 # AMCHO — Cocoa & Chocolate Analytics Platform
 
 A full-stack data analytics platform that ingests global cocoa prices and U.S. chocolate manufacturing PPI data from CSV sources into PostgreSQL, then serves interactive dashboards via a REST API.
+In this Web app, there is select option dropdown where you can select different range of years.
 
 ---
 
