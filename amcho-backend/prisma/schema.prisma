@@ -1,0 +1,28 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../node_modules/.prisma/client" // 💡 Changed from @prisma to .prisma
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model chocolate_ppi {
+  observation_date DateTime @id @db.Date
+  ppi_index        Decimal  @db.Decimal(8, 3)
+}
+
+model global_cocoa_prices {
+  observation_date  DateTime @id @db.Date
+  price_usd_per_ton Decimal  @db.Decimal(12, 4)
+}
+
+
+//USER MODEL FOR AUTHENTICATION
+model User{
+  id        Int      @id @default(autoincrement())
+  username  String   @unique
+  password  String   // Stores the secure bcrypt hash string
+  createdAt DateTime @default(now())
+}
