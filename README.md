@@ -20,11 +20,11 @@ Python ETL Pipeline  ──►  PostgreSQL Database  ◄──  Express API (por
 
 ## Tech Stack
 
-| Layer | Technology |
-|-------|------------|
-| **ETL** | Python, Pandas, SQLAlchemy, psycopg2 |
-| **Database** | PostgreSQL |
-| **Backend** | Node.js, Express, Prisma ORM, JWT, bcrypt |
+| Layer        | Technology                                                |
+| ------------ | --------------------------------------------------------- |
+| **ETL**      | Python, Pandas, SQLAlchemy, psycopg2                      |
+| **Database** | PostgreSQL                                                |
+| **Backend**  | Node.js, Express, Prisma ORM, JWT, bcrypt                 |
 | **Frontend** | React 19, Vite, Tailwind CSS v4, ApexCharts, Lucide Icons |
 
 ---
@@ -35,33 +35,26 @@ Two tables and one analytical view in a PostgreSQL database named `amcho`:
 
 ### `global_cocoa_prices`
 
-| Column | Type | Description |
-|--------|------|-------------|
-| `observation_date` | `DATE` (PK) | Date of observation |
+| Column              | Type            | Description                       |
+| ------------------- | --------------- | --------------------------------- |
+| `observation_date`  | `DATE` (PK)     | Date of observation               |
 | `price_usd_per_ton` | `NUMERIC(12,4)` | Global cocoa price in USD per ton |
 
 ### `chocolate_ppi`
 
-| Column | Type | Description |
-|--------|------|-------------|
-| `observation_date` | `DATE` (PK) | Date of observation |
-| `ppi_index` | `NUMERIC(8,3)` | U.S. chocolate manufacturing Producer Price Index |
-
-### `analytical_chocolate_insights` (VIEW)
-
-A `FULL OUTER JOIN` of both tables on `observation_date`, exposing:
-- `observation_date`
-- `global_cocoa_price`
-- `chocolate_manufacturing_ppi`
+| Column             | Type           | Description                                       |
+| ------------------ | -------------- | ------------------------------------------------- |
+| `observation_date` | `DATE` (PK)    | Date of observation                               |
+| `ppi_index`        | `NUMERIC(8,3)` | U.S. chocolate manufacturing Producer Price Index |
 
 ### `User` (Prisma-only, for authentication)
 
-| Column | Type | Description |
-|--------|------|-------------|
-| `id` | `INT` (PK, autoincrement) | User ID |
-| `username` | `VARCHAR` (unique) | Login username |
-| `password` | `VARCHAR` | bcrypt-hashed password |
-| `createdAt` | `TIMESTAMP` | Account creation date |
+| Column      | Type                      | Description            |
+| ----------- | ------------------------- | ---------------------- |
+| `id`        | `INT` (PK, autoincrement) | User ID                |
+| `username`  | `VARCHAR` (unique)        | Login username         |
+| `password`  | `VARCHAR`                 | bcrypt-hashed password |
+| `createdAt` | `TIMESTAMP`               | Account creation date  |
 
 ---
 
@@ -79,31 +72,7 @@ A `FULL OUTER JOIN` of both tables on `observation_date`, exposing:
 psql -U postgres -h 127.0.0.1 -c "CREATE DATABASE amcho;"
 ```
 
-### 2. Configure Environment Variables
-
-**Root `.env`** (for the Python ETL pipeline):
-
-```
-DB_USER=postgres
-DB_PASSWORD=postgres
-DB_PORT=5432
-DB_NAME=amcho
-```
-
-**`amcho-backend/.env`** (for the Node.js API):
-
-```
-DB_USER=postgres
-DB_PASSWORD=postgres
-DB_PORT=5432
-DB_NAME=amcho
-DB_HOST=127.0.0.1
-PORT=5000
-DATABASE_URL="postgresql://postgres:postgres@127.0.0.1:5432/amcho?schema=public"
-JWT_SECRET=secret
-```
-
-### 3. Run the ETL Pipeline
+### 2. Run the ETL Pipeline
 
 ```bash
 # Install Python dependencies
@@ -151,24 +120,25 @@ npm run dev
 ## Default Credentials
 
 | Username | Password |
-|----------|----------|
-| `admin` | `123` |
-| `staff` | `123` |
+| -------- | -------- |
+| `admin`  | `123`    |
+| `staff`  | `123`    |
 
 ---
 
 ## API Endpoints
 
-| Method | Endpoint | Auth | Description |
-|--------|----------|------|-------------|
-| `POST` | `/api/auth/login` | No | Authenticate and receive JWT cookie |
-| `POST` | `/api/auth/logout` | No | Clear auth cookie |
-| `GET` | `/api/auth/me` | Yes | Get current user profile |
-| `GET` | `/api/cocoa` | Yes | Get all analytics data (7 query results) |
+| Method | Endpoint           | Auth | Description                              |
+| ------ | ------------------ | ---- | ---------------------------------------- |
+| `POST` | `/api/auth/login`  | No   | Authenticate and receive JWT cookie      |
+| `POST` | `/api/auth/logout` | No   | Clear auth cookie                        |
+| `GET`  | `/api/auth/me`     | Yes  | Get current user profile                 |
+| `GET`  | `/api/cocoa`       | Yes  | Get all analytics data (7 query results) |
 
 ### `/api/cocoa` Response
 
 Returns a single JSON object with seven analytical result sets:
+
 1. **cocoaPrice** — Annual average cocoa prices
 2. **cocoaPriceChange** — Year-over-year absolute price change
 3. **cocoaPriceChangePercentage** — Year-over-year price percentage change

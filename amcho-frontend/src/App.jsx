@@ -12,6 +12,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+        {/* Forcing login to be default route */}
         <Route path="/" element={<Navigate to="/login" replace />} />
         <Route
           path="/login"
