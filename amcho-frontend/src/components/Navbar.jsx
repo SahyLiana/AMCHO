@@ -1,5 +1,6 @@
 import { Database, LogOut } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function Navbar({ user }) {
   const navigate = useNavigate();
@@ -12,9 +13,11 @@ function Navbar({ user }) {
       });
       if (response.ok) {
         navigate("/login", { replace: true });
+        toast.success("Logout successful!");
       }
     } catch (error) {
       console.error("Logout failed:", error.message);
+      totast.error("Logout failed!Please try again.");
     }
   };
 

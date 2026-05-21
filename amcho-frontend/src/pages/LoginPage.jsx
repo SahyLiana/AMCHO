@@ -1,6 +1,7 @@
 import { Lock, User } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function LoginPage({ setUser }) {
   //User initialization
@@ -37,10 +38,12 @@ function LoginPage({ setUser }) {
       if (!responses.ok) {
         console.log(dataUser.error);
         setError(dataUser.error);
+        toast.error(dataUser.error);
       } else {
         console.log(dataUser.user);
         setUser({ ...dataUser.user });
         navigate("/dashboard");
+        toast.success("Login successful!");
       }
     } catch (error) {
       setError(error.message);
