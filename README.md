@@ -73,20 +73,20 @@ Two tables and one analytical view in a PostgreSQL database named `amcho`:
 git clone https://github.com/SahyLiana/AMCHO.git
 ```
 
-### 1. Create the Database
+### 2. Create the Database
 
 ```bash
 psql -U postgres -h 127.0.0.1 -c "CREATE DATABASE amcho;"
 ```
 
-### 2. Run the ETL Pipeline
+### 3. Run the ETL Pipeline
 
 ```bash
 # Install Python dependencies
 pip install pandas sqlalchemy psycopg2-binary python-dotenv
 
 # Run the orchestrator to create tables, views, and ingest CSV data
-python pipeline.py
+python3 pipeline.py
 ```
 
 ### 4. Start the Backend API
