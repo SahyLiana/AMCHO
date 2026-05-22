@@ -67,6 +67,12 @@ Two tables and one analytical view in a PostgreSQL database named `amcho`:
 - Node.js 18+
 - PostgreSQL running locally on port 5432
 
+### 1. Clone the project
+
+```bash
+git clone https://github.com/SahyLiana/AMCHO.git
+```
+
 ### 1. Create the Database
 
 ```bash
